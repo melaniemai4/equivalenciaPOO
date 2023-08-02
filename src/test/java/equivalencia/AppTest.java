@@ -91,8 +91,13 @@ public class AppTest {
 
     @Test
     public void testPerlaEntrena() {
+        //Finalmente, en un test aparte, hacer que Perla entrene 15 días y aprenda una técnica. 
+        //Después de eso, la potencia tiene que ser 65, y todavía no tiene que ser destacada. 
+        //Después hacer que aprenda una técnica más. 
+        //Después de aprender esta segunda técnica adicional, Perla tiene que ser destacada.
+
         Atleta perla = new Atleta(28, "Perla", 6, 4);
-        assertEquals("la potencia de Perla es de 44", 44, perla.getPotencia());
+        assertEquals("la potencia de Perla es de 44", 44, perla.getPotencia()); //<-- sin entrenar
         perla.entrenar(15);
         perla.aprenderTecnica();
         assertEquals("la potencia de Perla es de 65", 65, perla.getPotencia());
