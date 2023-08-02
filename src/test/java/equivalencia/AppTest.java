@@ -50,7 +50,7 @@ public class AppTest {
         assertEquals(persona.getNombre() + " inteligencia", expectedInteli, persona.getInteligencia());
         assertEquals(persona.getNombre() + " destacada", expectedDest, persona.esDestacada());
     }
-    
+
     @Test
     public void testEscenarioBasico2() {
         Persona julieta = new Persona(42, "Julieta");
@@ -73,21 +73,6 @@ public class AppTest {
         testPlaneta(triton);
     }
 
-    @Test
-    public void testPerlaEntrena() {
-        Atleta perla = new Atleta(28, "Perla", 6, 4);
-        assertEquals("la potencia de Perla es de 44", 44, perla.getPotencia());
-        perla.entrenar(15);
-        perla.aprenderTecnica();
-        assertEquals("la potencia de Perla es de 65", 65, perla.getPotencia());
-        assertFalse("no es destacada", perla.esDestacada());
-        perla.aprenderTecnica();
-        assertTrue("es destacada", perla.esDestacada());
-
-    }
-
-
-
     public void testPlaneta(Planeta planeta) {
         testDelegacionDiplomatica(planeta.getDelegacionDiplomatica(), "Ana", true); // la delegación diplomática está
                                                                                     // formada por Ana, Rosa y Mónica
@@ -102,6 +87,19 @@ public class AppTest {
 
         assertEquals("la potencia real es 184", 184, planeta.getPotenciaReal()); // la potencia real es 184
         assertFalse("la potencia real es 184", planeta.getPotenciaReal() == 186);
+    }
+
+    @Test
+    public void testPerlaEntrena() {
+        Atleta perla = new Atleta(28, "Perla", 6, 4);
+        assertEquals("la potencia de Perla es de 44", 44, perla.getPotencia());
+        perla.entrenar(15);
+        perla.aprenderTecnica();
+        assertEquals("la potencia de Perla es de 65", 65, perla.getPotencia());
+        assertFalse("no es destacada", perla.esDestacada());
+        perla.aprenderTecnica();
+        assertTrue("es destacada", perla.esDestacada());
+
     }
 
     public void testDelegacionDiplomatica(Set<Persona> delegacion, String nombre, boolean expected) {
@@ -139,10 +137,11 @@ public class AppTest {
 
     @Test
     public void testValorDePersonas() {
-        // suma la potencia y la inteligencia de cada persona. los docentes tienen 5 adicionales
-        Persona julieta = new Persona(42, "Julieta"); //20+8
-        Atleta ana = new Atleta(25, "Ana"); //28+12
-        Docente monica = new Docente(45, "Monica", 6); //20+20+5
+        // suma la potencia y la inteligencia de cada persona. los docentes tienen 5
+        // adicionales
+        Persona julieta = new Persona(42, "Julieta"); // 20+8
+        Atleta ana = new Atleta(25, "Ana"); // 28+12
+        Docente monica = new Docente(45, "Monica", 6); // 20+20+5
 
         Set<Persona> listaHabitantes = new HashSet<>();
 
@@ -156,37 +155,42 @@ public class AppTest {
 
         Planeta tierra = new Planeta(listaHabitantes, 2);
 
-        assertEquals("es habitante valioso", false, tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Julieta")));
-        assertEquals("es habitante valioso", true, tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Ana")));
-        assertEquals("es habitante valioso", true, tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Monica")));
+        assertEquals("es habitante valioso", false,
+        tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Julieta")));
+        
+        assertEquals("es habitante valioso", true,
+        tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Ana")));
+        
+        assertEquals("es habitante valioso", true,
+        tierra.getHabitantesValiosos().stream().anyMatch(p -> p.getNombre().equals("Monica")));
 
     }
 
     @Test
     public void testApaciguarPlaneta() {
-        Atleta ana = new Atleta(25, "Ana"); 
-        Docente monica = new Docente(45, "Monica", 6); 
-        Atleta perla = new Atleta(28,"Perla",6,4);    
+        Atleta ana = new Atleta(25, "Ana");
+        Docente monica = new Docente(45, "Monica", 6);
+        Atleta perla = new Atleta(28, "Perla", 6, 4);
 
         Set<Persona> listaHabitantes = new HashSet<>();
 
-        listaHabitantes.add(ana); //valiosa, suma 2 km
-        listaHabitantes.add(monica); //valiosa, suma 1 museo
-        listaHabitantes.add(perla); //valiosa, suma 2 km
+        listaHabitantes.add(ana); // valiosa, suma 2 km
+        listaHabitantes.add(monica); // valiosa, suma 1 museo
+        listaHabitantes.add(perla); // valiosa, suma 2 km
         Planeta triton = new Planeta(listaHabitantes, 2);
 
         Set<Persona> list2 = new HashSet<>();
-        Persona rosana = new Persona(20,"Rosana");
-        Atleta claudia = new Atleta(30,"Claudia");    
+        Persona rosana = new Persona(20, "Rosana");
+        Atleta claudia = new Atleta(30, "Claudia");
         list2.add(rosana);
         list2.add(claudia);
-        Planeta paleas = new Planeta(list2,0);
+        Planeta paleas = new Planeta(list2, 0);
 
         assertEquals("cant museos de paleas antes de tributos", 0, paleas.getCantMuseos());
         assertEquals("cant km muralla de paleas antes de tributos", 0, paleas.getLongMurallaTotalKM());
 
         triton.apaciguarPlaneta(paleas);
-    // todos los habitantes valiosos de triton tributan a paleas
+        // todos los habitantes valiosos de triton tributan a paleas
         assertEquals("cant museos de paleas antes de tributos", 1, paleas.getCantMuseos());
         assertEquals("cant km muralla de paleas antes de tributos", 4, paleas.getLongMurallaTotalKM());
 
@@ -201,9 +205,9 @@ public class AppTest {
         armasS1.add(armaPistolete1);
         Soldado ruben = new Soldado(20, "Ruben", armasS1);
 
-        assertEquals("ruben 20 años, pistolete 15 cm --> el doble", 30, armaPistolete1.getPotencia(ruben.getEdad()));
-        assertEquals("ruben 20 años, espadon 6 kg --> la mitad ", 3, armaEspadon1.getPotencia(ruben.getEdad()));
-        assertEquals("ruben potencia final", 53, ruben.getPotencia()); //20 + 30 + 3
+        assertEquals("ruben 20 años, pistolete 15 cm --> el doble porque tiene menos de 30 años", 30, armaPistolete1.getPotencia(ruben.getEdad()));
+        assertEquals("ruben 20 años, espadon 6 kg --> la mitad porque tiene menos de 40 años", 3, armaEspadon1.getPotencia(ruben.getEdad()));
+        assertEquals("ruben potencia final", 53, ruben.getPotencia()); // 20 + 30 + 3
 
         Set<Arma> armasS2 = new HashSet<>();
         Espadon armaEspadon2 = new Espadon(10);
@@ -213,9 +217,10 @@ public class AppTest {
         armasS2.add(armaPistolete2);
         Soldado horacio = new Soldado(45, "Horacio", armasS2);
 
-        assertEquals("horacio 20 años, pistolete 25 cm --> el doble", 75, armaPistolete2.getPotencia(horacio.getEdad()));
-        assertEquals("horacio 20 años, espadon 10 kg --> la mitad ", 6, armaEspadon2.getPotencia(horacio.getEdad()));
-        assertEquals("horacio potencia final", 101, horacio.getPotencia()); //20 + 75 + 6
+        assertEquals("horacio 45 años, pistolete 25 cm --> el triple porque tiene más de 30 años", 75,
+                armaPistolete2.getPotencia(horacio.getEdad()));
+        assertEquals("horacio 45 años, espadon 10 kg --> 6 unidades porque tiene más de 40 años", 6, armaEspadon2.getPotencia(horacio.getEdad()));
+        assertEquals("horacio potencia final", 101, horacio.getPotencia()); // 20 + 75 + 6
 
         Set<Persona> list2 = new HashSet<>();
 
@@ -224,7 +229,7 @@ public class AppTest {
         Planeta tierra = new Planeta(list2, 1);
         assertEquals("cant km muralla antes de tributos", 0, tierra.getLongMurallaTotalKM());
 
-        tierra.recibirTributos(); //soldados construyen 5km de muralla
+        tierra.recibirTributos(); // soldados construyen 5km de muralla
 
         assertEquals("cant km muralla antes de tributos", 10, tierra.getLongMurallaTotalKM());
     }
